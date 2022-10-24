@@ -35,4 +35,4 @@ def predict_price():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5001)
+    ui_app.run(host='0.0.0.0', port=5001)
