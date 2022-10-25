@@ -1,10 +1,8 @@
 import json
+import os
 
 import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestRegressor
 from flask import jsonify
-
 
 class PricePredictor:
     def __init__(self):
@@ -16,7 +14,7 @@ class PricePredictor:
         print(json.dumps(prediction_input))
         df = pd.read_json(json.dumps(prediction_input), orient='records')
         print(df)
-        y_pred = model.predict(df)
+        y_pred = self.model.predict(df)
         print(y_pred[0])
         status = (y_pred[0] > 0.5)
         print(type(status[0]))
