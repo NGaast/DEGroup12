@@ -44,9 +44,3 @@ class ModelManaging:
             parser.add_argument('--parameter_dict', type=str, help="Pipeline parameters as a json file")
             args = parser.parse_args()
             return vars(args)
-
-    def train_model():
-        Self.run_pipeline_job(**Self.parse_command_line_arguments)
-
-
-        

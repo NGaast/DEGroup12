@@ -13,7 +13,7 @@ def store_data():
     
 @app.route('/train_model', methods=['POST'])
 def train_model():
-    if ModelManaging.train_model():
+    if ModelManaging.run_pipeline_job(**ModelManaging.parse_command_line_arguments):
         return "Model trained succesfully"
     else:
         return "Model failed to train"
