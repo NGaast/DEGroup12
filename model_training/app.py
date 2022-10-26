@@ -17,7 +17,10 @@ def store_data():
 def train_model():
     args = ModelManaging.parse_command_line_arguments()
     print(args, file=sys.stdout)
-    if ModelManaging.run_pipeline_job():
+    if ModelManaging.run_pipeline_job("housing-price",
+                                      "../house_pricing_training_pipeline.json",
+                                      "gs://de_jads_temp_ng"
+                                      "../parameters.json"):
         return "Model trained succesfully"
     else:
         return "Model failed to train"

@@ -10,6 +10,15 @@ import pandas as pd
 
 
 class ModelManaging:
+    def __init__():
+        params = {
+            "project_id": "de-2022-ng",
+            "data_bucket": "data_de2022_ng",
+            "dataset_filename": "train_set.csv",
+            "model_repo": "model_repo_de2022_ng"
+        }
+
+
     def store_training_data():
         content_type = request.headers.get('Content-Type')
         if (content_type == 'application/json'):
@@ -26,7 +35,7 @@ class ModelManaging:
 
     def run_pipeline_job(name, pipeline_def, pipeline_root, parameter_dict):
         # Opening JSON file
-        f = open(  )
+        f = open(parameter_dict)
         data = json.load(f)
         job = aip.PipelineJob(
             display_name=name,
@@ -35,12 +44,3 @@ class ModelManaging:
             pipeline_root=pipeline_root,
             parameter_values=data)
         job.run()
-
-    def parse_command_line_arguments():
-            parser = argparse.ArgumentParser()
-            parser.add_argument('--name', type=str, help="Pipeline Name")
-            parser.add_argument('--pipeline_def', type=str, default="pipeline.json", help="Pipeline JSON definition file")
-            parser.add_argument('--pipeline_root', type=str, help="GCP bucket for pipeline_root")
-            parser.add_argument('--parameter_dict', type=str, help="Pipeline parameters as a json file")
-            args = parser.parse_args()
-            return vars(args)
