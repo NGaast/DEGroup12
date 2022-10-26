@@ -17,7 +17,7 @@ def store_data():
 def train_model():
     if ModelManaging.run_pipeline_job("housing-price",
                                       "../house_pricing_training_pipeline.json",
-                                      "gs://de_jads_temp_ng"
+                                      "gs://de_jads_temp_ng",
                                       "../parameters.json"):
         return "Model trained succesfully"
     else:
