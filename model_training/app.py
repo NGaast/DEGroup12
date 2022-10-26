@@ -15,8 +15,6 @@ def store_data():
     
 @app.route('/train_model', methods=['POST'])
 def train_model():
-    args = ModelManaging.parse_command_line_arguments()
-    print(args, file=sys.stdout)
     if ModelManaging.run_pipeline_job("housing-price",
                                       "../house_pricing_training_pipeline.json",
                                       "gs://de_jads_temp_ng"
