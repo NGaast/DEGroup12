@@ -12,4 +12,4 @@ def store_data():
     else:
         return 'Content-Type not supported!'
 
-app.run(host='0.0.0.0', port=5000)
+app.run(host='0.0.0.0', port=5002)
