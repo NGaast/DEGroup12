@@ -24,6 +24,98 @@
           }
         }
       },
+      "comp-condition-1": {
+        "dag": {
+          "tasks": {
+            "replace-current-with-rfr": {
+              "cachingOptions": {
+                "enableCache": true
+              },
+              "componentRef": {
+                "name": "comp-replace-current-with-rfr"
+              },
+              "inputs": {
+                "parameters": {
+                  "data": {
+                    "componentInputParameter": "pipelineparam--download-data-Output"
+                  },
+                  "model_repo": {
+                    "componentInputParameter": "pipelineparam--model_repo"
+                  },
+                  "project_id": {
+                    "componentInputParameter": "pipelineparam--project_id"
+                  }
+                }
+              },
+              "taskInfo": {
+                "name": "replace-current-with-rfr"
+              }
+            }
+          }
+        },
+        "inputDefinitions": {
+          "parameters": {
+            "pipelineparam--compare-model-Output": {
+              "type": "STRING"
+            },
+            "pipelineparam--download-data-Output": {
+              "type": "STRING"
+            },
+            "pipelineparam--model_repo": {
+              "type": "STRING"
+            },
+            "pipelineparam--project_id": {
+              "type": "STRING"
+            }
+          }
+        }
+      },
+      "comp-condition-2": {
+        "dag": {
+          "tasks": {
+            "replace-current-with-lr": {
+              "cachingOptions": {
+                "enableCache": true
+              },
+              "componentRef": {
+                "name": "comp-replace-current-with-lr"
+              },
+              "inputs": {
+                "parameters": {
+                  "data": {
+                    "componentInputParameter": "pipelineparam--download-data-Output"
+                  },
+                  "model_repo": {
+                    "componentInputParameter": "pipelineparam--model_repo"
+                  },
+                  "project_id": {
+                    "componentInputParameter": "pipelineparam--project_id"
+                  }
+                }
+              },
+              "taskInfo": {
+                "name": "replace-current-with-lr"
+              }
+            }
+          }
+        },
+        "inputDefinitions": {
+          "parameters": {
+            "pipelineparam--compare-model-Output": {
+              "type": "STRING"
+            },
+            "pipelineparam--download-data-Output": {
+              "type": "STRING"
+            },
+            "pipelineparam--model_repo": {
+              "type": "STRING"
+            },
+            "pipelineparam--project_id": {
+              "type": "STRING"
+            }
+          }
+        }
+      },
       "comp-download-data": {
         "executorLabel": "exec-download-data",
         "inputDefinitions": {
@@ -70,108 +162,47 @@
           }
         }
       },
-      "comp-importer": {
-        "executorLabel": "exec-importer",
+      "comp-replace-current-with-lr": {
+        "executorLabel": "exec-replace-current-with-lr",
         "inputDefinitions": {
           "parameters": {
-            "uri": {
+            "data": {
+              "type": "STRING"
+            },
+            "model_repo": {
+              "type": "STRING"
+            },
+            "project_id": {
               "type": "STRING"
             }
           }
         },
         "outputDefinitions": {
-          "artifacts": {
-            "artifact": {
-              "artifactType": {
-                "schemaTitle": "google.UnmanagedContainerModel",
-                "schemaVersion": "0.0.1"
-              }
+          "parameters": {
+            "Output": {
+              "type": "STRING"
             }
           }
         }
       },
-      "comp-model-upload": {
-        "executorLabel": "exec-model-upload",
+      "comp-replace-current-with-rfr": {
+        "executorLabel": "exec-replace-current-with-rfr",
         "inputDefinitions": {
-          "artifacts": {
-            "unmanaged_container_model": {
-              "artifactType": {
-                "schemaTitle": "google.UnmanagedContainerModel",
-                "schemaVersion": "0.0.1"
-              }
-            }
-          },
           "parameters": {
-            "artifact_uri": {
+            "data": {
               "type": "STRING"
             },
-            "description": {
+            "model_repo": {
               "type": "STRING"
             },
-            "display_name": {
-              "type": "STRING"
-            },
-            "encryption_spec_key_name": {
-              "type": "STRING"
-            },
-            "explanation_metadata": {
-              "type": "STRING"
-            },
-            "explanation_parameters": {
-              "type": "STRING"
-            },
-            "instance_schema_uri": {
-              "type": "STRING"
-            },
-            "labels": {
-              "type": "STRING"
-            },
-            "location": {
-              "type": "STRING"
-            },
-            "parameters_schema_uri": {
-              "type": "STRING"
-            },
-            "prediction_schema_uri": {
-              "type": "STRING"
-            },
-            "project": {
-              "type": "STRING"
-            },
-            "serving_container_args": {
-              "type": "STRING"
-            },
-            "serving_container_command": {
-              "type": "STRING"
-            },
-            "serving_container_environment_variables": {
-              "type": "STRING"
-            },
-            "serving_container_health_route": {
-              "type": "STRING"
-            },
-            "serving_container_image_uri": {
-              "type": "STRING"
-            },
-            "serving_container_ports": {
-              "type": "STRING"
-            },
-            "serving_container_predict_route": {
+            "project_id": {
               "type": "STRING"
             }
           }
         },
         "outputDefinitions": {
-          "artifacts": {
-            "model": {
-              "artifactType": {
-                "schemaTitle": "google.VertexModel",
-                "schemaVersion": "0.0.1"
-              }
-            }
-          },
           "parameters": {
-            "gcp_resources": {
+            "Output": {
               "type": "STRING"
             }
           }
@@ -245,7 +276,7 @@
               "sh",
               "-ec",
               "program_path=$(mktemp)\nprintf \"%s\" \"$0\" > \"$program_path\"\npython3 -u \"$program_path\" \"$@\"\n",
-              "def compare_model(rfr_metrics, lr_metrics, current_metrics):\n    import logging\n    import json\n    import sys\n\n    logging.basicConfig(stream=sys.stdout, level=logging.INFO)\n    logging.info(rfr_metrics)\n    logging.info(lr_metrics)\n    logging.info(current_metrics)\n\n    # Add metrics to list\n    metrics_dict = {\n        \"RFR\": rfr_metrics['r2'], \n        \"LR\": lr_metrics['r2'], \n        \"Curr\": current_metrics['r2']\n    }\n\n    best_model = max(metrics_dict, key=metrics_dict.get)\n\n    logging.info(\"Best model:\", best_model)\n\n    if best_model == \"RFR\":\n        local_file = '/tmp/local_RFR_model.pkl'\n    elif best_model == \"LR\":\n        local_file = '/tmp/local_lr_model.pkl'\n\n    # Save to GCS as lr_model.pkl\n    client = storage.Client(project=project_id)\n    bucket = client.get_bucket(model_repo)\n    blob = bucket.blob('depl_model.pkl')\n    # Upload the locally saved model\n    blob.upload_from_filename(local_file)\n\ndef _serialize_str(str_value: str) -> str:\n    if not isinstance(str_value, str):\n        raise TypeError('Value \"{}\" has type \"{}\" instead of str.'.format(\n            str(str_value), str(type(str_value))))\n    return str_value\n\nimport json\nimport argparse\n_parser = argparse.ArgumentParser(prog='Compare model', description='')\n_parser.add_argument(\"--rfr-metrics\", dest=\"rfr_metrics\", type=json.loads, required=True, default=argparse.SUPPRESS)\n_parser.add_argument(\"--lr-metrics\", dest=\"lr_metrics\", type=json.loads, required=True, default=argparse.SUPPRESS)\n_parser.add_argument(\"--current-metrics\", dest=\"current_metrics\", type=json.loads, required=True, default=argparse.SUPPRESS)\n_parser.add_argument(\"----output-paths\", dest=\"_output_paths\", type=str, nargs=1)\n_parsed_args = vars(_parser.parse_args())\n_output_files = _parsed_args.pop(\"_output_paths\", [])\n\n_outputs = compare_model(**_parsed_args)\n\n_outputs = [_outputs]\n\n_output_serializers = [\n    _serialize_str,\n\n]\n\nimport os\nfor idx, output_file in enumerate(_output_files):\n    try:\n        os.makedirs(os.path.dirname(output_file))\n    except OSError:\n        pass\n    with open(output_file, 'w') as f:\n        f.write(_output_serializers[idx](_outputs[idx]))\n"
+              "def compare_model(rfr_metrics, lr_metrics, current_metrics):\n    import logging\n    import json\n    import sys\n\n    logging.basicConfig(stream=sys.stdout, level=logging.INFO)\n    logging.info(rfr_metrics)\n    logging.info(lr_metrics)\n    logging.info(current_metrics)\n\n    # Add metrics to list\n    metrics_dict = {\n        \"RFR\": rfr_metrics['r2'], \n        \"LR\": lr_metrics['r2'], \n        \"Curr\": current_metrics['r2']\n    }\n\n    best_model = max(metrics_dict, key=metrics_dict.get)\n\n    logging.info(\"Best model:\", best_model)\n\n    return best_model\n\ndef _serialize_str(str_value: str) -> str:\n    if not isinstance(str_value, str):\n        raise TypeError('Value \"{}\" has type \"{}\" instead of str.'.format(\n            str(str_value), str(type(str_value))))\n    return str_value\n\nimport json\nimport argparse\n_parser = argparse.ArgumentParser(prog='Compare model', description='')\n_parser.add_argument(\"--rfr-metrics\", dest=\"rfr_metrics\", type=json.loads, required=True, default=argparse.SUPPRESS)\n_parser.add_argument(\"--lr-metrics\", dest=\"lr_metrics\", type=json.loads, required=True, default=argparse.SUPPRESS)\n_parser.add_argument(\"--current-metrics\", dest=\"current_metrics\", type=json.loads, required=True, default=argparse.SUPPRESS)\n_parser.add_argument(\"----output-paths\", dest=\"_output_paths\", type=str, nargs=1)\n_parsed_args = vars(_parser.parse_args())\n_output_files = _parsed_args.pop(\"_output_paths\", [])\n\n_outputs = compare_model(**_parsed_args)\n\n_outputs = [_outputs]\n\n_output_serializers = [\n    _serialize_str,\n\n]\n\nimport os\nfor idx, output_file in enumerate(_output_files):\n    try:\n        os.makedirs(os.path.dirname(output_file))\n    except OSError:\n        pass\n    with open(output_file, 'w') as f:\n        f.write(_output_serializers[idx](_outputs[idx]))\n"
             ],
             "image": "python:3.7"
           }
@@ -298,47 +329,52 @@
             "image": "python:3.7"
           }
         },
-        "exec-importer": {
-          "importer": {
-            "artifactUri": {
-              "constantValue": {
-                "stringValue": "gs://model_repo_de2022_ng"
-              }
-            },
-            "metadata": {
-              "containerSpec": {
-                "imageUri": "us-docker.pkg.dev/vertex-ai/prediction/sklearn-cpu.1-0:latest"
-              }
-            },
-            "typeSchema": {
-              "schemaTitle": "google.UnmanagedContainerModel",
-              "schemaVersion": "0.0.1"
-            }
-          }
-        },
-        "exec-model-upload": {
+        "exec-replace-current-with-lr": {
           "container": {
             "args": [
-              "--type",
-              "UploadModel",
-              "--payload",
-              "{\"display_name\": \"{{$.inputs.parameters['display_name']}}\", \"description\": \"{{$.inputs.parameters['description']}}\", \"predict_schemata\": {\"instance_schema_uri\": \"{{$.inputs.parameters['instance_schema_uri']}}\", \"parameters_schema_uri\": \"{{$.inputs.parameters['parameters_schema_uri']}}\", \"prediction_schema_uri\": \"{{$.inputs.parameters['prediction_schema_uri']}}\"}, \"container_spec\": {\"image_uri\": \"{{$.inputs.parameters['serving_container_image_uri']}}\", \"command\": {{$.inputs.parameters['serving_container_command']}}, \"args\": {{$.inputs.parameters['serving_container_args']}}, \"env\": {{$.inputs.parameters['serving_container_environment_variables']}}, \"ports\": {{$.inputs.parameters['serving_container_ports']}}, \"predict_route\": \"{{$.inputs.parameters['serving_container_predict_route']}}\", \"health_route\": \"{{$.inputs.parameters['serving_container_health_route']}}\"}, \"artifact_uri\": \"{{$.inputs.parameters['artifact_uri']}}\", \"explanation_spec\": {\"parameters\": {{$.inputs.parameters['explanation_parameters']}}, \"metadata\": {{$.inputs.parameters['explanation_metadata']}}}, \"encryption_spec\": {\"kms_key_name\":\"{{$.inputs.parameters['encryption_spec_key_name']}}\"}, \"labels\": {{$.inputs.parameters['labels']}}}",
-              "--project",
-              "{{$.inputs.parameters['project']}}",
-              "--location",
-              "{{$.inputs.parameters['location']}}",
-              "--gcp_resources",
-              "{{$.outputs.parameters['gcp_resources'].output_file}}",
-              "--executor_input",
-              "{{$}}"
+              "--project-id",
+              "{{$.inputs.parameters['project_id']}}",
+              "--model-repo",
+              "{{$.inputs.parameters['model_repo']}}",
+              "--data",
+              "{{$.inputs.parameters['data']}}",
+              "----output-paths",
+              "{{$.outputs.parameters['Output'].output_file}}"
             ],
             "command": [
-              "python3",
-              "-u",
-              "-m",
-              "google_cloud_pipeline_components.container.v1.model.upload_model.launcher"
+              "sh",
+              "-c",
+              "(PIP_DISABLE_PIP_VERSION_CHECK=1 python3 -m pip install --quiet --no-warn-script-location 'google-cloud-storage' 'pandas' 'joblib' 'scikit-learn' || PIP_DISABLE_PIP_VERSION_CHECK=1 python3 -m pip install --quiet --no-warn-script-location 'google-cloud-storage' 'pandas' 'joblib' 'scikit-learn' --user) && \"$0\" \"$@\"",
+              "sh",
+              "-ec",
+              "program_path=$(mktemp)\nprintf \"%s\" \"$0\" > \"$program_path\"\npython3 -u \"$program_path\" \"$@\"\n",
+              "def replace_current_with_lr(project_id, model_repo, data):\n    from google.cloud import storage\n\n    import json\n    import logging\n    import sys\n    import os\n\n    # Save the model localy\n    local_file = '/tmp/local_lr_model.pkl'\n\n    # Save to GCS as lr_model.pkl\n    client = storage.Client(project=project_id)\n    bucket = client.get_bucket(model_repo)\n    blob = bucket.blob('lr_model.pkl')\n    # Upload the locally saved model\n    blob.upload_from_filename(local_file)\n\ndef _serialize_json(obj) -> str:\n    if isinstance(obj, str):\n        return obj\n    import json\n\n    def default_serializer(obj):\n        if hasattr(obj, 'to_struct'):\n            return obj.to_struct()\n        else:\n            raise TypeError(\n                \"Object of type '%s' is not JSON serializable and does not have .to_struct() method.\"\n                % obj.__class__.__name__)\n\n    return json.dumps(obj, default=default_serializer, sort_keys=True)\n\nimport json\nimport argparse\n_parser = argparse.ArgumentParser(prog='Replace current with lr', description='')\n_parser.add_argument(\"--project-id\", dest=\"project_id\", type=str, required=True, default=argparse.SUPPRESS)\n_parser.add_argument(\"--model-repo\", dest=\"model_repo\", type=str, required=True, default=argparse.SUPPRESS)\n_parser.add_argument(\"--data\", dest=\"data\", type=json.loads, required=True, default=argparse.SUPPRESS)\n_parser.add_argument(\"----output-paths\", dest=\"_output_paths\", type=str, nargs=1)\n_parsed_args = vars(_parser.parse_args())\n_output_files = _parsed_args.pop(\"_output_paths\", [])\n\n_outputs = replace_current_with_lr(**_parsed_args)\n\n_outputs = [_outputs]\n\n_output_serializers = [\n    _serialize_json,\n\n]\n\nimport os\nfor idx, output_file in enumerate(_output_files):\n    try:\n        os.makedirs(os.path.dirname(output_file))\n    except OSError:\n        pass\n    with open(output_file, 'w') as f:\n        f.write(_output_serializers[idx](_outputs[idx]))\n"
             ],
-            "image": "gcr.io/ml-pipeline/google-cloud-pipeline-components:1.0.25"
+            "image": "python:3.7"
+          }
+        },
+        "exec-replace-current-with-rfr": {
+          "container": {
+            "args": [
+              "--project-id",
+              "{{$.inputs.parameters['project_id']}}",
+              "--model-repo",
+              "{{$.inputs.parameters['model_repo']}}",
+              "--data",
+              "{{$.inputs.parameters['data']}}",
+              "----output-paths",
+              "{{$.outputs.parameters['Output'].output_file}}"
+            ],
+            "command": [
+              "sh",
+              "-c",
+              "(PIP_DISABLE_PIP_VERSION_CHECK=1 python3 -m pip install --quiet --no-warn-script-location 'google-cloud-storage' 'pandas' 'joblib' 'scikit-learn' || PIP_DISABLE_PIP_VERSION_CHECK=1 python3 -m pip install --quiet --no-warn-script-location 'google-cloud-storage' 'pandas' 'joblib' 'scikit-learn' --user) && \"$0\" \"$@\"",
+              "sh",
+              "-ec",
+              "program_path=$(mktemp)\nprintf \"%s\" \"$0\" > \"$program_path\"\npython3 -u \"$program_path\" \"$@\"\n",
+              "def replace_current_with_rfr(project_id, model_repo, data):\n    from google.cloud import storage\n\n    import json\n    import logging\n    import sys\n    import os\n\n    # Save the model localy\n    local_file = '/tmp/local_rfr_model.pkl'\n\n    # Save to GCS as lr_model.pkl\n    client = storage.Client(project=project_id)\n    bucket = client.get_bucket(model_repo)\n    blob = bucket.blob('rfr_model.pkl')\n    # Upload the locally saved model\n    blob.upload_from_filename(local_file)\n\ndef _serialize_json(obj) -> str:\n    if isinstance(obj, str):\n        return obj\n    import json\n\n    def default_serializer(obj):\n        if hasattr(obj, 'to_struct'):\n            return obj.to_struct()\n        else:\n            raise TypeError(\n                \"Object of type '%s' is not JSON serializable and does not have .to_struct() method.\"\n                % obj.__class__.__name__)\n\n    return json.dumps(obj, default=default_serializer, sort_keys=True)\n\nimport json\nimport argparse\n_parser = argparse.ArgumentParser(prog='Replace current with rfr', description='')\n_parser.add_argument(\"--project-id\", dest=\"project_id\", type=str, required=True, default=argparse.SUPPRESS)\n_parser.add_argument(\"--model-repo\", dest=\"model_repo\", type=str, required=True, default=argparse.SUPPRESS)\n_parser.add_argument(\"--data\", dest=\"data\", type=json.loads, required=True, default=argparse.SUPPRESS)\n_parser.add_argument(\"----output-paths\", dest=\"_output_paths\", type=str, nargs=1)\n_parsed_args = vars(_parser.parse_args())\n_output_files = _parsed_args.pop(\"_output_paths\", [])\n\n_outputs = replace_current_with_rfr(**_parsed_args)\n\n_outputs = [_outputs]\n\n_output_serializers = [\n    _serialize_json,\n\n]\n\nimport os\nfor idx, output_file in enumerate(_output_files):\n    try:\n        os.makedirs(os.path.dirname(output_file))\n    except OSError:\n        pass\n    with open(output_file, 'w') as f:\n        f.write(_output_serializers[idx](_outputs[idx]))\n"
+            ],
+            "image": "python:3.7"
           }
         },
         "exec-train-lr": {
@@ -360,7 +396,7 @@
               "sh",
               "-ec",
               "program_path=$(mktemp)\nprintf \"%s\" \"$0\" > \"$program_path\"\npython3 -u \"$program_path\" \"$@\"\n",
-              "def train_lr (data, project_id, model_repo):\n    '''train a LinearRegression with default parameters'''\n    import json\n    import logging \n    import sys\n    import os\n    import joblib\n\n    import pandas as pd\n    from google.cloud import storage\n\n    from sklearn.linear_model import LinearRegression\n    from sklearn.model_selection import train_test_split\n    from sklearn.metrics import r2_score\n\n    logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)\n\n    data = pd.DataFrame.from_dict(data)  \n\n    logging.info('Features:' + str(list(data.columns)))\n\n    # Split dependent and independent variables\n    X = data.drop(['MEDV'], axis=1)\n    y = data['MEDV']\n\n    # Split train and test data\n    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, \n                                                        random_state=101)\n\n    # Fit model\n    model = LinearRegression()\n    model.fit(X_train, y_train)\n\n    # Predict on test data\n    y_pred = model.predict(X_test)\n\n    # Get r2 score\n    metrics = {\n        \"r2\": r2_score(y_pred, y_test)\n    }\n    logging.info(\"LR r2:\" + str(metrics['r2']))\n\n    # Save the model localy\n    local_file = '/tmp/local_lr_model.pkl'\n    joblib.dump(model, local_file)\n\n    print(\"Saved the LR model locally: \" + model_repo)\n    return metrics\n\ndef _serialize_json(obj) -> str:\n    if isinstance(obj, str):\n        return obj\n    import json\n\n    def default_serializer(obj):\n        if hasattr(obj, 'to_struct'):\n            return obj.to_struct()\n        else:\n            raise TypeError(\n                \"Object of type '%s' is not JSON serializable and does not have .to_struct() method.\"\n                % obj.__class__.__name__)\n\n    return json.dumps(obj, default=default_serializer, sort_keys=True)\n\nimport json\nimport argparse\n_parser = argparse.ArgumentParser(prog='Train lr', description='train a LinearRegression with default parameters')\n_parser.add_argument(\"--data\", dest=\"data\", type=json.loads, required=True, default=argparse.SUPPRESS)\n_parser.add_argument(\"--project-id\", dest=\"project_id\", type=str, required=True, default=argparse.SUPPRESS)\n_parser.add_argument(\"--model-repo\", dest=\"model_repo\", type=str, required=True, default=argparse.SUPPRESS)\n_parser.add_argument(\"----output-paths\", dest=\"_output_paths\", type=str, nargs=1)\n_parsed_args = vars(_parser.parse_args())\n_output_files = _parsed_args.pop(\"_output_paths\", [])\n\n_outputs = train_lr(**_parsed_args)\n\n_outputs = [_outputs]\n\n_output_serializers = [\n    _serialize_json,\n\n]\n\nimport os\nfor idx, output_file in enumerate(_output_files):\n    try:\n        os.makedirs(os.path.dirname(output_file))\n    except OSError:\n        pass\n    with open(output_file, 'w') as f:\n        f.write(_output_serializers[idx](_outputs[idx]))\n"
+              "def train_lr (data, project_id, model_repo):\n    '''train a LinearRegression with default parameters'''\n    import json\n    import logging \n    import sys\n    import os\n    import joblib\n\n    import pandas as pd\n    from google.cloud import storage\n\n    from sklearn.linear_model import LinearRegression\n    from sklearn.model_selection import train_test_split\n    from sklearn.metrics import r2_score\n\n    logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)\n\n    data = pd.DataFrame.from_dict(data)  \n\n    logging.info('Features:' + str(list(data.columns)))\n\n    # Split dependent and independent variables\n    X = data.drop(['MEDV'], axis=1)\n    y = data['MEDV']\n\n    # Split train and test data\n    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, \n                                                        random_state=101)\n\n    # Fit model\n    model = LinearRegression()\n    model.fit(X_train, y_train)\n\n    # Predict on test data\n    y_pred = model.predict(X_test)\n\n    # Get r2 score\n    metrics = {\n        \"r2\": r2_score(y_pred, y_test)\n    }\n    logging.info(\"LR r2:\" + str(metrics['r2']))\n\n    # Save the model localy\n    local_file = '/tmp/local_lr_model.pkl'\n    joblib.dump(model, local_file)\n    # write out output\n\n    # Save to GCS as lr_model.pkl\n    client = storage.Client(project=project_id)\n    bucket = client.get_bucket(model_repo)\n    blob = bucket.blob('lr_model.pkl')\n    # Upload the locally saved model\n    blob.upload_from_filename(local_file)\n\n    print(\"Saved the model to GCP bucket : \" + model_repo)\n    return metrics\n\ndef _serialize_json(obj) -> str:\n    if isinstance(obj, str):\n        return obj\n    import json\n\n    def default_serializer(obj):\n        if hasattr(obj, 'to_struct'):\n            return obj.to_struct()\n        else:\n            raise TypeError(\n                \"Object of type '%s' is not JSON serializable and does not have .to_struct() method.\"\n                % obj.__class__.__name__)\n\n    return json.dumps(obj, default=default_serializer, sort_keys=True)\n\nimport json\nimport argparse\n_parser = argparse.ArgumentParser(prog='Train lr', description='train a LinearRegression with default parameters')\n_parser.add_argument(\"--data\", dest=\"data\", type=json.loads, required=True, default=argparse.SUPPRESS)\n_parser.add_argument(\"--project-id\", dest=\"project_id\", type=str, required=True, default=argparse.SUPPRESS)\n_parser.add_argument(\"--model-repo\", dest=\"model_repo\", type=str, required=True, default=argparse.SUPPRESS)\n_parser.add_argument(\"----output-paths\", dest=\"_output_paths\", type=str, nargs=1)\n_parsed_args = vars(_parser.parse_args())\n_output_files = _parsed_args.pop(\"_output_paths\", [])\n\n_outputs = train_lr(**_parsed_args)\n\n_outputs = [_outputs]\n\n_output_serializers = [\n    _serialize_json,\n\n]\n\nimport os\nfor idx, output_file in enumerate(_output_files):\n    try:\n        os.makedirs(os.path.dirname(output_file))\n    except OSError:\n        pass\n    with open(output_file, 'w') as f:\n        f.write(_output_serializers[idx](_outputs[idx]))\n"
             ],
             "image": "python:3.7"
           }
@@ -384,7 +420,7 @@
               "sh",
               "-ec",
               "program_path=$(mktemp)\nprintf \"%s\" \"$0\" > \"$program_path\"\npython3 -u \"$program_path\" \"$@\"\n",
-              "def train_rfr(data, project_id, model_repo):\n    import json\n    import logging \n    import sys\n    import os\n    import joblib\n\n    import pandas as pd\n    from google.cloud import storage\n\n    from sklearn.ensemble import RandomForestRegressor\n    from sklearn.model_selection import train_test_split\n    from sklearn.metrics import r2_score\n\n    logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)\n\n    data = pd.DataFrame.from_dict(data)  \n\n    logging.info('Features:' + str(list(data.columns)))\n\n    # Split dependent and independent variables\n    X = data.drop(['MEDV'], axis=1)\n    y = data['MEDV']\n\n    # Split train and test data\n    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, \n                                                        random_state=101)\n\n    # Fit model\n    model = RandomForestRegressor()\n    model.fit(X_train, y_train)\n\n    # Predict on test data\n    y_pred = model.predict(X_test)\n\n    # Get r2 score\n    metrics = {\n        \"r2\": r2_score(y_pred, y_test)\n    }\n    logging.info(\"RFR r2:\" + str(metrics['r2']))\n\n    # Save model locally\n    local_file = '/tmp/local_rfr_model.pkl'\n    joblib.dump(model, local_file)\n\n    client = storage.Client(project=project_id)\n    bucket = client.get_bucket(model_repo)\n    blob = bucket.blob('rfr_model.pkl')\n    # Upload the locally saved model\n    blob.upload_from_filename(local_file)\n\n    print(\"Saved the RFR model locally: \" + model_repo)\n    return metrics\n\ndef _serialize_json(obj) -> str:\n    if isinstance(obj, str):\n        return obj\n    import json\n\n    def default_serializer(obj):\n        if hasattr(obj, 'to_struct'):\n            return obj.to_struct()\n        else:\n            raise TypeError(\n                \"Object of type '%s' is not JSON serializable and does not have .to_struct() method.\"\n                % obj.__class__.__name__)\n\n    return json.dumps(obj, default=default_serializer, sort_keys=True)\n\nimport json\nimport argparse\n_parser = argparse.ArgumentParser(prog='Train rfr', description='')\n_parser.add_argument(\"--data\", dest=\"data\", type=json.loads, required=True, default=argparse.SUPPRESS)\n_parser.add_argument(\"--project-id\", dest=\"project_id\", type=str, required=True, default=argparse.SUPPRESS)\n_parser.add_argument(\"--model-repo\", dest=\"model_repo\", type=str, required=True, default=argparse.SUPPRESS)\n_parser.add_argument(\"----output-paths\", dest=\"_output_paths\", type=str, nargs=1)\n_parsed_args = vars(_parser.parse_args())\n_output_files = _parsed_args.pop(\"_output_paths\", [])\n\n_outputs = train_rfr(**_parsed_args)\n\n_outputs = [_outputs]\n\n_output_serializers = [\n    _serialize_json,\n\n]\n\nimport os\nfor idx, output_file in enumerate(_output_files):\n    try:\n        os.makedirs(os.path.dirname(output_file))\n    except OSError:\n        pass\n    with open(output_file, 'w') as f:\n        f.write(_output_serializers[idx](_outputs[idx]))\n"
+              "def train_rfr(data, project_id, model_repo):\n    import json\n    import logging \n    import sys\n    import os\n    import joblib\n\n    import pandas as pd\n    from google.cloud import storage\n\n    from sklearn.ensemble import RandomForestRegressor\n    from sklearn.model_selection import train_test_split\n    from sklearn.metrics import r2_score\n\n    logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)\n\n    data = pd.DataFrame.from_dict(data)  \n\n    logging.info('Features:' + str(list(data.columns)))\n\n    # Split dependent and independent variables\n    X = data.drop(['MEDV'], axis=1)\n    y = data['MEDV']\n\n    # Split train and test data\n    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, \n                                                        random_state=101)\n\n    # Fit model\n    model = RandomForestRegressor()\n    model.fit(X_train, y_train)\n\n    # Predict on test data\n    y_pred = model.predict(X_test)\n\n    # Get r2 score\n    metrics = {\n        \"r2\": r2_score(y_pred, y_test)\n    }\n    logging.info(\"RFR r2:\" + str(metrics['r2']))\n\n    # Save model locally\n    local_file = '/tmp/local_rfr_model.pkl'\n    joblib.dump(model, local_file)\n\n    client = storage.Client(project=project_id)\n    bucket = client.get_bucket(model_repo)\n    blob = bucket.blob('rfr_model.pkl')\n    # Upload the locally saved model\n    blob.upload_from_filename(local_file)\n\n    print(\"Saved the model to GCP bucket : \" + model_repo)\n    return metrics\n\ndef _serialize_json(obj) -> str:\n    if isinstance(obj, str):\n        return obj\n    import json\n\n    def default_serializer(obj):\n        if hasattr(obj, 'to_struct'):\n            return obj.to_struct()\n        else:\n            raise TypeError(\n                \"Object of type '%s' is not JSON serializable and does not have .to_struct() method.\"\n                % obj.__class__.__name__)\n\n    return json.dumps(obj, default=default_serializer, sort_keys=True)\n\nimport json\nimport argparse\n_parser = argparse.ArgumentParser(prog='Train rfr', description='')\n_parser.add_argument(\"--data\", dest=\"data\", type=json.loads, required=True, default=argparse.SUPPRESS)\n_parser.add_argument(\"--project-id\", dest=\"project_id\", type=str, required=True, default=argparse.SUPPRESS)\n_parser.add_argument(\"--model-repo\", dest=\"model_repo\", type=str, required=True, default=argparse.SUPPRESS)\n_parser.add_argument(\"----output-paths\", dest=\"_output_paths\", type=str, nargs=1)\n_parsed_args = vars(_parser.parse_args())\n_output_files = _parsed_args.pop(\"_output_paths\", [])\n\n_outputs = train_rfr(**_parsed_args)\n\n_outputs = [_outputs]\n\n_output_serializers = [\n    _serialize_json,\n\n]\n\nimport os\nfor idx, output_file in enumerate(_output_files):\n    try:\n        os.makedirs(os.path.dirname(output_file))\n    except OSError:\n        pass\n    with open(output_file, 'w') as f:\n        f.write(_output_serializers[idx](_outputs[idx]))\n"
             ],
             "image": "python:3.7"
           }
@@ -433,6 +469,80 @@
             },
             "taskInfo": {
               "name": "compare-model"
+            }
+          },
+          "condition-1": {
+            "componentRef": {
+              "name": "comp-condition-1"
+            },
+            "dependentTasks": [
+              "compare-model",
+              "download-data"
+            ],
+            "inputs": {
+              "parameters": {
+                "pipelineparam--compare-model-Output": {
+                  "taskOutputParameter": {
+                    "outputParameterKey": "Output",
+                    "producerTask": "compare-model"
+                  }
+                },
+                "pipelineparam--download-data-Output": {
+                  "taskOutputParameter": {
+                    "outputParameterKey": "Output",
+                    "producerTask": "download-data"
+                  }
+                },
+                "pipelineparam--model_repo": {
+                  "componentInputParameter": "model_repo"
+                },
+                "pipelineparam--project_id": {
+                  "componentInputParameter": "project_id"
+                }
+              }
+            },
+            "taskInfo": {
+              "name": "condition-1"
+            },
+            "triggerPolicy": {
+              "condition": "inputs.parameters['pipelineparam--compare-model-Output'].string_value == 'rfr'"
+            }
+          },
+          "condition-2": {
+            "componentRef": {
+              "name": "comp-condition-2"
+            },
+            "dependentTasks": [
+              "compare-model",
+              "download-data"
+            ],
+            "inputs": {
+              "parameters": {
+                "pipelineparam--compare-model-Output": {
+                  "taskOutputParameter": {
+                    "outputParameterKey": "Output",
+                    "producerTask": "compare-model"
+                  }
+                },
+                "pipelineparam--download-data-Output": {
+                  "taskOutputParameter": {
+                    "outputParameterKey": "Output",
+                    "producerTask": "download-data"
+                  }
+                },
+                "pipelineparam--model_repo": {
+                  "componentInputParameter": "model_repo"
+                },
+                "pipelineparam--project_id": {
+                  "componentInputParameter": "project_id"
+                }
+              }
+            },
+            "taskInfo": {
+              "name": "condition-2"
+            },
+            "triggerPolicy": {
+              "condition": "inputs.parameters['pipelineparam--compare-model-Output'].string_value == 'LR'"
             }
           },
           "download-data": {
@@ -487,186 +597,6 @@
             },
             "taskInfo": {
               "name": "eval-current-model"
-            }
-          },
-          "importer": {
-            "cachingOptions": {
-              "enableCache": true
-            },
-            "componentRef": {
-              "name": "comp-importer"
-            },
-            "dependentTasks": [
-              "compare-model"
-            ],
-            "inputs": {
-              "parameters": {
-                "uri": {
-                  "runtimeValue": {
-                    "constantValue": {
-                      "stringValue": "gs://model_repo_de2022_ng"
-                    }
-                  }
-                }
-              }
-            },
-            "taskInfo": {
-              "name": "importer"
-            }
-          },
-          "model-upload": {
-            "cachingOptions": {
-              "enableCache": true
-            },
-            "componentRef": {
-              "name": "comp-model-upload"
-            },
-            "dependentTasks": [
-              "importer"
-            ],
-            "inputs": {
-              "artifacts": {
-                "unmanaged_container_model": {
-                  "taskOutputArtifact": {
-                    "outputArtifactKey": "artifact",
-                    "producerTask": "importer"
-                  }
-                }
-              },
-              "parameters": {
-                "artifact_uri": {
-                  "runtimeValue": {
-                    "constantValue": {
-                      "stringValue": ""
-                    }
-                  }
-                },
-                "description": {
-                  "runtimeValue": {
-                    "constantValue": {
-                      "stringValue": ""
-                    }
-                  }
-                },
-                "display_name": {
-                  "runtimeValue": {
-                    "constantValue": {
-                      "stringValue": "housing-prediction-model"
-                    }
-                  }
-                },
-                "encryption_spec_key_name": {
-                  "runtimeValue": {
-                    "constantValue": {
-                      "stringValue": ""
-                    }
-                  }
-                },
-                "explanation_metadata": {
-                  "runtimeValue": {
-                    "constantValue": {
-                      "stringValue": "{}"
-                    }
-                  }
-                },
-                "explanation_parameters": {
-                  "runtimeValue": {
-                    "constantValue": {
-                      "stringValue": "{}"
-                    }
-                  }
-                },
-                "instance_schema_uri": {
-                  "runtimeValue": {
-                    "constantValue": {
-                      "stringValue": ""
-                    }
-                  }
-                },
-                "labels": {
-                  "runtimeValue": {
-                    "constantValue": {
-                      "stringValue": "{}"
-                    }
-                  }
-                },
-                "location": {
-                  "runtimeValue": {
-                    "constantValue": {
-                      "stringValue": "us-central1"
-                    }
-                  }
-                },
-                "parameters_schema_uri": {
-                  "runtimeValue": {
-                    "constantValue": {
-                      "stringValue": ""
-                    }
-                  }
-                },
-                "prediction_schema_uri": {
-                  "runtimeValue": {
-                    "constantValue": {
-                      "stringValue": ""
-                    }
-                  }
-                },
-                "project": {
-                  "componentInputParameter": "project_id"
-                },
-                "serving_container_args": {
-                  "runtimeValue": {
-                    "constantValue": {
-                      "stringValue": "[]"
-                    }
-                  }
-                },
-                "serving_container_command": {
-                  "runtimeValue": {
-                    "constantValue": {
-                      "stringValue": "[]"
-                    }
-                  }
-                },
-                "serving_container_environment_variables": {
-                  "runtimeValue": {
-                    "constantValue": {
-                      "stringValue": "[]"
-                    }
-                  }
-                },
-                "serving_container_health_route": {
-                  "runtimeValue": {
-                    "constantValue": {
-                      "stringValue": ""
-                    }
-                  }
-                },
-                "serving_container_image_uri": {
-                  "runtimeValue": {
-                    "constantValue": {
-                      "stringValue": ""
-                    }
-                  }
-                },
-                "serving_container_ports": {
-                  "runtimeValue": {
-                    "constantValue": {
-                      "stringValue": "[]"
-                    }
-                  }
-                },
-                "serving_container_predict_route": {
-                  "runtimeValue": {
-                    "constantValue": {
-                      "stringValue": ""
-                    }
-                  }
-                }
-              }
-            },
-            "taskInfo": {
-              "name": "model-upload"
             }
           },
           "train-lr": {
@@ -744,6 +674,9 @@
           },
           "project_id": {
             "type": "STRING"
+          },
+          "testset_filename": {
+            "type": "STRING"
           }
         }
       }
@@ -752,6 +685,6 @@
     "sdkVersion": "kfp-1.8.14"
   },
   "runtimeConfig": {
-    "gcsOutputDirectory": "gs://de_jads_temp_ng"
+    "gcsOutputDirectory": "gs://data_de2022_ng"
   }
 }
