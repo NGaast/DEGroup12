@@ -17,8 +17,10 @@ COPY . .
 EXPOSE 5000
 
 # Enviroment Variables
-ENV DB_URL=sqlite:///data.db
-ENV DATAINGESTION_API=http://dataingestion:5000/data-ingest
+ENV PIPELINE_NAME=housing-price
+ENV PIPELINE_TEMPLATE=./house_pricing_training_pipeline.json
+ENV PIPELINE_FOLDER=gs://de_jads_temp_ng
+ENV PIPELINE_PARAMETERS=./parameters.json
 
 # Run our App
 CMD ["python3","app.py"]

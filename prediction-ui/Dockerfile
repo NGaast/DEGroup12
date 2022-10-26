@@ -11,7 +11,8 @@ COPY . .
 # Expose the port that our app runs in
 EXPOSE 5000
 # Enviroment Variables
-ENV PREDICTOR_API=http://predictor-api-server:5000/houseprice_predictor
+ENV PREDICTION_API_URL=https://prediction-api-hwhqlhs2ua-uc.a.run.app
+ENV PREDICTION_API_PORT=5000
 #Add some meta data if necessary
 LABEL houseprice.predictor.api="0.0.1-beta"
 # Run our App

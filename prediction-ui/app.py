@@ -8,6 +8,7 @@ from flask import Flask, request, render_template
 # Flask constructor
 app = Flask(__name__)
 
+import os
 
 # A decorator used to tell the application
 # which URL is associated function
@@ -27,7 +28,10 @@ def predict_price():
         print(prediction_input)
         # use requests library to execute the prediction service API by sending a HTTP POST request
         # localhost or 127.0.0.1 is used when the applications are on the same machine.
-        res = requests.post(predictor_api_url, json=json.loads(json.dumps(prediction_input)))
+        api_url = os.environ['PREDICTION_API_URL']
+        api_port = os.environ['PREDICTION_API_PORT']
+        request_url = "{0}:{1}/price_predictor".format(api_url,api_port)
+        res = requests.post(api_url, json=json.loads(json.dumps(prediction_input)))
         print(res.status_code)
         result = res.json()
         return result

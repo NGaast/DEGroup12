@@ -2,6 +2,7 @@ from resources.model_training import ModelManaging
 from flask import Flask, jsonify, Response, request
 
 import sys
+import os
 
 app=Flask(__name__)
 app.config["DEBUG"] = True
@@ -15,6 +16,10 @@ def store_data():
     
 @app.route('/train_model', methods=['POST'])
 def train_model():
+    pipeline_name = os.environ['PIPELINE_NAME']
+    pipeline_template = os.environ['PIPELINE_TEMPLATE']
+    pipeline_folder = os.environ['PIPELINE_FOLDER']
+    pipeline_parameters = os.environ['PIPELINE_PARAMETERS']
     if ModelManaging.run_pipeline_job("housing-price",
                                       "./house_pricing_training_pipeline.json",
                                       "gs://de_jads_temp_ng",

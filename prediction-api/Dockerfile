@@ -11,7 +11,8 @@ COPY . .
 # Expose the port that our app runs in
 EXPOSE 5000
 # Enviroment Variables
-ENV MODEL_REPO=/usr/src/myapp
+ENV PROJECT_ID=de-2022-ng
+ENV MODEL_REPO=model_repo_de2022_ng
 # Run our App
 CMD ["python3","app.py"]
 # We can also use an ENTRYPOINT and a CMD
