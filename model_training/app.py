@@ -24,4 +24,4 @@ def train_model():
         return "Model failed to train"
     
 
-app.run(host='0.0.0.0', port=5002)
+app.run(host='0.0.0.0', port=5000)
