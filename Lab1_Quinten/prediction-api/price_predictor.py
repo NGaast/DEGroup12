@@ -3,9 +3,10 @@ import os
 import logging
 import sys
 import joblib
-
 import pandas as pd
 from flask import jsonify
+from google.cloud import storage
+
 
 class PricePredictor:
     def __init__(self):
