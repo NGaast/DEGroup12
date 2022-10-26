@@ -1,4 +1,4 @@
-from resources.data_storing import ModelManaging
+from resources.model_training import ModelManaging
 from flask import Flask, jsonify, Response, request
 
 app=Flask(__name__)
