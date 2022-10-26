@@ -1,6 +1,8 @@
 from resources.model_training import ModelManaging
 from flask import Flask, jsonify, Response, request
 
+import sys
+
 app=Flask(__name__)
 app.config["DEBUG"] = True
 
@@ -13,7 +15,9 @@ def store_data():
     
 @app.route('/train_model', methods=['POST'])
 def train_model():
-    if ModelManaging.run_pipeline_job(ModelManaging.parse_command_line_arguments):
+    args = ModelManaging.parse_command_line_arguments()
+    print(args, file=sys.stdout)
+    if ModelManaging.run_pipeline_job():
         return "Model trained succesfully"
     else:
         return "Model failed to train"
