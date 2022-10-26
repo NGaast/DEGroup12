@@ -744,9 +744,6 @@
           },
           "project_id": {
             "type": "STRING"
-          },
-          "testset_filename": {
-            "type": "STRING"
           }
         }
       }
@@ -755,6 +752,6 @@
     "sdkVersion": "kfp-1.8.14"
   },
   "runtimeConfig": {
-    "gcsOutputDirectory": "gs://data_de2022_ng"
+    "gcsOutputDirectory": "gs://de_jads_temp_ng"
   }
 }
