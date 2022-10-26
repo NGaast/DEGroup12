@@ -19,6 +19,7 @@ class DataStoring:
             blob = bucket.blob('dataset_test.csv')
             # Upload the locally saved model
             blob.upload_from_string(df.to_csv(), content_type='application/json')
-           
+            
+
             return True
         return False
