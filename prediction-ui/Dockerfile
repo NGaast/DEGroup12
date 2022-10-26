@@ -15,7 +15,7 @@ ENV PREDICTOR_API=http://predictor-api-server:5000/houseprice_predictor
 #Add some meta data if necessary
 LABEL houseprice.predictor.api="0.0.1-beta"
 # Run our App
-CMD ["python3","ui_app.py"]
+CMD ["python3","app.py"]
 # We can also use an ENTRYPOINT and a CMD
 # Run our App
 #ENTRYPOINT ["python3"]

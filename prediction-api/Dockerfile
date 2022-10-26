@@ -13,7 +13,7 @@ EXPOSE 5000
 # Enviroment Variables
 ENV MODEL_REPO=/usr/src/myapp
 # Run our App
-CMD ["python3","api_app.py"]
+CMD ["python3","app.py"]
 # We can also use an ENTRYPOINT and a CMD
 # Run our App
 #ENTRYPOINT ["python3"]
