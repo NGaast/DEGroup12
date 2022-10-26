@@ -16,9 +16,9 @@ def store_data():
 @app.route('/train_model', methods=['POST'])
 def train_model():
     if ModelManaging.run_pipeline_job("housing-price",
-                                      "../house_pricing_training_pipeline.json",
+                                      "../../house_pricing_training_pipeline.json",
                                       "gs://de_jads_temp_ng",
-                                      "../parameters.json"):
+                                      "../../parameters.json"):
         return "Model trained succesfully"
     else:
         return "Model failed to train"
