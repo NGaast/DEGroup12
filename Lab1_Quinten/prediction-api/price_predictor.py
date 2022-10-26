@@ -17,10 +17,10 @@ class PricePredictor:
         # Download LR model
         client = storage.client(project=project_id)
         bucket = client.get_bucket(model_repo)
-        blob = bucket.blob('lr_model.pk1')
-        blob.download_to_filename('/tmp/local_lr_model.pk1')
+        blob = bucket.blob('depl_model.pk1')
+        blob.download_to_filename('/tmp/depl_model.pk1')
         # Load RandomForestRegressor model
-        model = joblib.load('/tmp/local_lr_model.pk1')
+        model = joblib.load('/tmp/depl_model.pk1')
         print(json.dumps(prediction_input))
         df = pd.read_json(json.dumps(prediction_input), orient='records')
         print(df)
