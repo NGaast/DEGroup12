@@ -674,9 +674,6 @@
           },
           "project_id": {
             "type": "STRING"
-          },
-          "testset_filename": {
-            "type": "STRING"
           }
         }
       }
