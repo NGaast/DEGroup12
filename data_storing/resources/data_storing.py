@@ -1,5 +1,6 @@
 import os
 from google.cloud import storage
+import sys
 from flask import Flask, jsonify, Response, request
 import pandas as pd
 import json
@@ -7,10 +8,10 @@ import json
 
 
 class DataStoring:
-    def store_posted_data(logger):
+    def store_posted_data():
         content_type = request.headers.get('Content-Type')
         if (content_type == 'application/json'):
-            logger.info('test2')
+            print('Hello world!', file=sys.stderr)
             json_post = request.json
             data = json.load(json_post)
             df = pd.read_json(data)
