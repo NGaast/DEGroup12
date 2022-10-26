@@ -1,9 +1,7 @@
-from resources.Data_storing import Database
 from flask import Flask, jsonify, Response, request
 
-
 app=Flask(__name__)
-db = Database()
+app.config["DEBUG"] = True
 
 @app.route('/post_json', methods=['POST'])
 def store_data():
@@ -13,5 +11,5 @@ def store_data():
         return json
     else:
         return 'Content-Type not supported!'
-        
+
 app.run(host='0.0.0.0', port=5000)
