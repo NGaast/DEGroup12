@@ -10,7 +10,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 # Expose the port that our app runs in
 EXPOSE 5000
-EXPOSE 8080
 # Enviroment Variables
 ENV MODEL_REPO=/usr/src/myapp
 # Run our App

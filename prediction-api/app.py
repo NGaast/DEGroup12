@@ -1,5 +1,4 @@
 from flask import Flask, request
-
 from price_predictor import PricePredictor
 
 app = Flask(__name__)
