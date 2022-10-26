@@ -4,7 +4,6 @@ from flask import Flask, jsonify, Response, request
 app=Flask(__name__)
 app.config["DEBUG"] = True
 
-
 @app.route('/post_json', methods=['POST'])
 def store_data():
     if DataStoring.store_posted_data():
