@@ -1,7 +1,6 @@
 import argparse
 import json
 
-from symbol import parameters
 from typing_extensions import Self
 from google.cloud import storage, aip
 from flask import Flask, jsonify, Response, request
