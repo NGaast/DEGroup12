@@ -7,9 +7,10 @@ import json
 
 
 class DataStoring:
-    def store_posted_data():
+    def store_posted_data(logger):
         content_type = request.headers.get('Content-Type')
         if (content_type == 'application/json'):
+            logger.info('test2')
             json_post = request.json
             data = json.load(json_post)
             df = pd.read_json(data)

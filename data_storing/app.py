@@ -12,7 +12,7 @@ logger.addHandler(handler) # adds handler to the werkzeug WSGI logger
 @app.route('/post_json', methods=['POST'])
 def store_data():
     logger.info('test')
-    if DataStoring.store_posted_data:
+    if DataStoring.store_posted_data(logger):
         return "Data stored succesfully"
     else:
         return "Content type not supported"
