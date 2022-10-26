@@ -7,3 +7,4 @@ h5py
 six
 sklearn
 google-cloud-storage
+joblib

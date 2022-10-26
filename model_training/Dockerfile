@@ -15,7 +15,6 @@ COPY . .
 
 # Expose the port that our app runs in
 EXPOSE 5000
-EXPOSE 8080
 
 # Enviroment Variables
 ENV DB_URL=sqlite:///data.db
