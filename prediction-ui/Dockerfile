@@ -3,9 +3,9 @@ FROM python:3.10.7-slim
 # Defining working directory (within the container) and copy the requirements file. We will run the commands inside this new directory
 WORKDIR /usr/src/myapp
 # Copy ui_requirements.txt  to the working directory
-COPY ui_requirements.txt .
+COPY requirements.txt .
 # Install required python packages
-RUN pip install --no-cache-dir -r ui_requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 # Copy all files in prediction-ui local host directory to /usr/src/myapp in Docker container
 COPY . .
 # Expose the port that our app runs in
