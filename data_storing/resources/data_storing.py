@@ -11,14 +11,15 @@ class DataStoring:
         content_type = request.headers.get('Content-Type')
         if (content_type == 'application/json'):
             json_post = request.get_json()
-            data = json.load(json_post)
-            df = pd.read_json(data)
-            # Save to GCS as lr_model.pkl
-            client = storage.Client(project="de-2022-ng")
-            bucket = client.get_bucket("model_repo_de2022_ng")
-            blob = bucket.blob('dataset_test.csv')
-            # Upload the locally saved model
-            blob.upload_from_string(df.to_csv(), content_type='application/json')
+            print(json_post, file=sys.stdout)
+            # data = json.load(json_post)
+            # df = pd.read_json(data)
+            # # Save to GCS as lr_model.pkl
+            # client = storage.Client(project="de-2022-ng")
+            # bucket = client.get_bucket("model_repo_de2022_ng")
+            # blob = bucket.blob('dataset_test.csv')
+            # # Upload the locally saved model
+            # blob.upload_from_string(df.to_csv(), content_type='application/json')
             
 
             return True
