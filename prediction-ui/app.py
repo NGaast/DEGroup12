@@ -30,8 +30,9 @@ def predict_price():
         # localhost or 127.0.0.1 is used when the applications are on the same machine.
         api_url = os.environ['PREDICTION_API_URL']
         api_port = os.environ['PREDICTION_API_PORT']
-        request_url = "{0}:{1}/price_predictor".format(api_url,api_port)
-        res = requests.post(api_url, json=json.loads(json.dumps(prediction_input)))
+        request_url_with_port = "{0}:{1}/price_predictor".format(api_url,api_port)
+        request_url = "{1}/price_predictor".format(api_url)
+        res = requests.post(request_url, json=json.loads(json.dumps(prediction_input)))
         print(res.status_code)
         result = res.json()
         return result
