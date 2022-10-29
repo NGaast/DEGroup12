@@ -7,14 +7,7 @@ import os
 app=Flask(__name__)
 app.config["DEBUG"] = True
 
-@app.route('/training_ui', methods=['GET', 'POST'])
-def training_ui():
-
-    return render_template(
-        "training_template.html")  # this method is called of HTTP method is GET, e.g., when browsing the link
-
-
-@app.route('/training_data', methods=['POST'])
+@app.route('/upload_training_data', methods=['POST'])
 def store_data():
     if ModelManaging.store_training_data():
         return "Data stored succesfully"

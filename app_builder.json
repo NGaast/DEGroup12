@@ -23,8 +23,17 @@
       "args": [
         "build",
         "-t",
-        "gcr.io/$PROJECT_ID/model-training:0.0.1",
-        "./model_training"
+        "gcr.io/$PROJECT_ID/training-ui:0.0.1",
+        "./training_ui"
+      ]
+    },
+    {
+      "name": "gcr.io/cloud-builders/docker",
+      "args": [
+        "build",
+        "-t",
+        "gcr.io/$PROJECT_ID/training-api:0.0.1",
+        "./training_api"
       ]
     },
     {
@@ -45,7 +54,14 @@
       "name": "gcr.io/cloud-builders/docker",
       "args": [
         "push",
-        "gcr.io/$PROJECT_ID/model-training:0.0.1"
+        "gcr.io/$PROJECT_ID/training-ui:0.0.1"
+      ]
+    },
+    {
+      "name": "gcr.io/cloud-builders/docker",
+      "args": [
+        "push",
+        "gcr.io/$PROJECT_ID/training-api:0.0.1"
       ]
     }
   ]
