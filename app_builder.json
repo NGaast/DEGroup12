@@ -72,7 +72,9 @@
         "deploy",
         "prediction-ui",
         "--image",
-        "gcr.io/$PROJECT_ID/prediction-ui:0.0.1"
+        "gcr.io/$PROJECT_ID/prediction-ui:0.0.1",
+        "--region",
+        "us-central1"
       ]
     }
   ]
