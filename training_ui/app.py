@@ -1,4 +1,3 @@
-from resources.model_training import ModelManaging
 from flask import Flask, jsonify, Response, request, render_template, flash, redirect
 
 import requests
