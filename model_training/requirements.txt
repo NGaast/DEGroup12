@@ -3,4 +3,4 @@ pandas
 numpy
 sklearn
 google-cloud-storage
-google-cloud-aiplatform
+google-cloud-aiplatform[pipelines]
