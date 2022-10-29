@@ -1,10 +1,12 @@
 import argparse
 import json
 
+from flask import Flask, request, render_template
+
 from typing_extensions import Self
 from google.cloud import storage
+from google.cloud import run
 import google.cloud.aiplatform as aip
-from flask import Flask, jsonify, Response, request
 import pandas as pd
 
 
