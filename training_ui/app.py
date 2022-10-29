@@ -24,9 +24,12 @@ def training_ui():
             return redirect(request.url)
 
         request_path = os.environ['TRAINING_API']
-        request_endpoint = os.environ['TRAINING_ENDPOINT']
-        request_url = "{0}/{1}".format(request_path, request_endpoint)
-        res = requests.post(request_url, json=json.loads(data_file))
+        upload_endpoint = os.environ['UPLOAD_ENDPOINT']
+        train_endpoint = os.environ['TRAIN_ENDPOINT']
+        upload_url = "{0}/{1}".format(request_path, upload_endpoint)
+        train_url = "{0}/{1}".format(request_path, train_endpoint)
+        upload_request = requests.post(upload_url, json=json.load(data_file))
+        train_request = requests.post(train_url)
     return render_template(
         "training_template.html")  # this method is called of HTTP method is GET, e.g., when browsing the link
     
