@@ -21,10 +21,5 @@ ENV TRAINING_API=https://model-training-hwhqlhs2ua-uc.a.run.app
 ENV UPLOAD_ENDPOINT=upload_training_data
 ENV TRAIN_ENDPOINT=train_model
 
-ENV PIPELINE_NAME=housing-price
-ENV PIPELINE_TEMPLATE=./house_pricing_training_pipeline.json
-ENV PIPELINE_FOLDER=gs://de_jads_temp_ng
-ENV PIPELINE_PARAMETERS=./parameters.json
-
 # Run our App
 CMD ["python3","app.py"]
