@@ -4,6 +4,7 @@ from flask import Flask, jsonify, Response, request, render_template, flash, red
 import requests
 import sys
 import os
+import json
 
 app=Flask(__name__)
 app.config["DEBUG"] = True
@@ -22,8 +23,10 @@ def training_ui():
             flash("No file selected")
             return redirect(request.url)
 
-        request_url
-        res = requests.post(request_url, json=json.loads(json.dumps(prediction_input)))
+        request_path = os.environ['TRAINING_API']
+        request_endpoint = os.environ['TRAINING_ENDPOINT']
+        request_url = "{0}/{1}".format(request_path, request_endpoint)
+        res = requests.post(request_url, json=json.loads(data_file))
     return render_template(
         "training_template.html")  # this method is called of HTTP method is GET, e.g., when browsing the link
     
