@@ -76,6 +76,45 @@
         "--region",
         "us-central1"
       ]
+    },
+    {
+      "name": "gcr.io/google.com/cloudsdktool/cloud-sdk",
+      "entrypoint": "gcloud",
+      "args": [
+        "run",
+        "deploy",
+        "prediction-api",
+        "--image",
+        "gcr.io/$PROJECT_ID/prediction-api:0.0.1",
+        "--region",
+        "us-central1"
+      ]
+    },
+    {
+      "name": "gcr.io/google.com/cloudsdktool/cloud-sdk",
+      "entrypoint": "gcloud",
+      "args": [
+        "run",
+        "deploy",
+        "training-ui",
+        "--image",
+        "gcr.io/$PROJECT_ID/training-ui:0.0.1",
+        "--region",
+        "us-central1"
+      ]
+    },
+    {
+      "name": "gcr.io/google.com/cloudsdktool/cloud-sdk",
+      "entrypoint": "gcloud",
+      "args": [
+        "run",
+        "deploy",
+        "training-api",
+        "--image",
+        "gcr.io/$PROJECT_ID/training-api:0.0.1",
+        "--region",
+        "us-central1"
+      ]
     }
   ]
 }
