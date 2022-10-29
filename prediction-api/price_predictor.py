@@ -18,7 +18,7 @@ class PricePredictor:
         project_id = os.environ['PROJECT_ID']
         model_repo = os.environ['MODEL_REPO']
 
-        client = storage.client(project=project_id)
+        client = storage.Client(project=project_id)
         bucket = client.get_bucket(model_repo)
         blob = bucket.blob('depl_model.pkl')
         blob.download_to_filename('/tmp/depl_model.pkl')
