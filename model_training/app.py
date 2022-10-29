@@ -11,7 +11,7 @@ app.config["DEBUG"] = True
 def training_ui():
 
     return render_template(
-        "template/training_template.html")  # this method is called of HTTP method is GET, e.g., when browsing the link
+        "training_template.html")  # this method is called of HTTP method is GET, e.g., when browsing the link
 
 
 @app.route('/training_data', methods=['POST'])
