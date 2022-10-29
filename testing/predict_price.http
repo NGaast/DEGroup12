@@ -1,4 +1,4 @@
-POST https://prediction-api-hwhqlhs2ua-uc.a.run.app/price_predictor/ HTTP/2.0
+POST https://prediction-api-hwhqlhs2ua-uc.a.run.app/price_predictor HTTP/2.0
 Content-Type: application/json
 
 {"CRIM":0.00632, "NOX":0.538, "RM":6.575, "DIS":0.063, "PTRATIO":15.3, "LSTAT":4.98}
