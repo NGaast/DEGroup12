@@ -15,7 +15,7 @@ class ModelManaging:
         params = {
             "project_id": "de-2022-ng",
             "data_bucket": "data_de2022_ng",
-            "dataset_filename": "train_set.csv",
+            "dataset_filename": "dataset.csv",
             "model_repo": "model_repo_de2022_ng"
         }
 
