@@ -1,5 +1,5 @@
 from resources.model_training import ModelManaging
-from flask import Flask, jsonify, Response, request
+from flask import Flask, jsonify, Response, request, render_template
 
 import sys
 import os
