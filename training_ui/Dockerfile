@@ -18,7 +18,8 @@ EXPOSE 5000
 
 # Enviroment Variables
 ENV TRAINING_API=https://model-training-hwhqlhs2ua-uc.a.run.app
-ENV TRAINING_ENDPOINT=
+ENV UPLOAD_ENDPOINT=upload_training_data
+ENV TRAIN_ENDPOINT=train_model
 
 ENV PIPELINE_NAME=housing-price
 ENV PIPELINE_TEMPLATE=./house_pricing_training_pipeline.json
