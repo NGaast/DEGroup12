@@ -1,9 +1,4 @@
 flask
 pandas
-keras
-tensorflow
 numpy
-h5py
-six
 requests
-google-cloud-storage

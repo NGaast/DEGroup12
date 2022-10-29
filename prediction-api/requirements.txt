@@ -1,10 +1,6 @@
 flask
 pandas
-keras
-tensorflow
 numpy
-h5py
-six
 sklearn
 google-cloud-storage
 joblib
