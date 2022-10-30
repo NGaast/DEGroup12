@@ -28,7 +28,6 @@ def training_ui():
         upload_url = "{0}/{1}".format(request_path, upload_endpoint)
         train_url = "{0}/{1}".format(request_path, train_endpoint)
         upload_request = requests.post(upload_url, json=json.load(data_file))
-        train_request = requests.post(train_url)
     return render_template("training_template.html")  # this method is called of HTTP method is GET, e.g., when browsing the link
     
 
