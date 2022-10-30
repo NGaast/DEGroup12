@@ -15,6 +15,7 @@ app.secret_key = secret
 @app.route('/training_ui', methods=['GET', 'POST'])
 def training_ui():
     if request.method == "POST":
+        flash('Test')
         # No file in request
         if 'training_data' not in request.files:
             flash("No file in request")
@@ -25,7 +26,6 @@ def training_ui():
         if data_file.filename == '':
             flash("No file selected")
             return redirect(request.url)
-
         request_path = os.environ['TRAINING_API']
         upload_endpoint = os.environ['UPLOAD_ENDPOINT']
         upload_url = "{0}/{1}".format(request_path, upload_endpoint)
