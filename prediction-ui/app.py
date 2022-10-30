@@ -32,9 +32,9 @@ def predict_price():
         # use requests library to execute the prediction service API by sending a HTTP POST request
         # localhost or 127.0.0.1 is used when the applications are on the same machine.
         api_url = os.environ['PREDICTION_API_URL']
-        api_port = os.environ['PREDICTION_API_PORT']
-        request_url = "{0}/price_predictor".format(api_url)
-        res = requests.post(request_url, json=json.loads(json.dumps(prediction_input)))
+        api_endpoint = os.environ['PREDICTION_API_ENDPOINT']
+        predict_url = "{0}/{1}".format(api_url, api_endpoint)
+        res = requests.post(predict_url, json=json.loads(json.dumps(prediction_input)))
         print(res.status_code, file=sys.stdout)
         result = res.json()
         return result

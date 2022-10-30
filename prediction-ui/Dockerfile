@@ -12,7 +12,7 @@ COPY . .
 EXPOSE 5000
 # Enviroment Variables
 ENV PREDICTION_API_URL=https://prediction-api-hwhqlhs2ua-uc.a.run.app
-ENV PREDICTION_API_PORT=5000
+ENV PREDICTION_API_ENDPOINT=predict_price
 #Add some meta data if necessary
 LABEL houseprice.predictor.api="0.0.1-beta"
 # Run our App
