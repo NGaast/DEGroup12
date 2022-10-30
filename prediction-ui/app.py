@@ -1,15 +1,13 @@
 # importing Flask and other modules
 import json
 import os
+import sys
 
 import requests
 from flask import Flask, request, render_template
 
 # Flask constructor
 app = Flask(__name__)
-
-import os
-import sys
 
 # A decorator used to tell the application
 # which URL is associated function

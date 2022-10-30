@@ -6,7 +6,8 @@ import os
 import json
 
 app=Flask(__name__)
-app.config["DEBUG"] = True
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+
 
 @app.route('/training_ui', methods=['GET', 'POST'])
 def training_ui():
