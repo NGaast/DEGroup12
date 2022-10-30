@@ -29,9 +29,9 @@ def training_ui():
         request_path = os.environ['TRAINING_API']
         upload_endpoint = os.environ['UPLOAD_ENDPOINT']
         upload_url = "{0}/{1}".format(request_path, upload_endpoint)
-        print("Test12321312", file=sys.stdout)
+        print(upload_url, file=sys.stdout)
         upload_request = requests.post(upload_url, json=json.load(data_file))
-        return upload_request.json()
+        # return upload_request.json()
     return render_template("training_template.html")  # this method is called of HTTP method is GET, e.g., when browsing the link
 
 # @app.route('/upload_data', methods=['POST'])
