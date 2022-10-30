@@ -2,12 +2,16 @@
 import json
 import os
 import sys
+import secrets
 
 import requests
 from flask import Flask, request, render_template
 
 # Flask constructor
 app = Flask(__name__)
+
+secret = secrets.token_urlsafe(32)
+app.secret_key = secret
 
 # A decorator used to tell the application
 # which URL is associated function

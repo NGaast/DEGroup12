@@ -4,9 +4,12 @@ import requests
 import sys
 import os
 import json
+import secrets
 
 app=Flask(__name__)
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+
+secret = secrets.token_urlsafe(32)
+app.secret_key = secret
 
 
 @app.route('/training_ui', methods=['GET', 'POST'])
