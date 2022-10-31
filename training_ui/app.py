@@ -9,6 +9,8 @@ import logging
 
 app=Flask(__name__)
 
+app.config['UPLOAD_FOLDER'] = "./tmp"
+
 secret = secrets.token_urlsafe(32)
 app.secret_key = secret
 
