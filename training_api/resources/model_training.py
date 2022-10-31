@@ -23,7 +23,7 @@ class ModelManaging:
             bucket = client.get_bucket("data_de2022_ng")
             blob = bucket.blob('dataset.csv')
             # Upload the locally saved model
-            blob.upload_from_string(df.to_csv(), content_type='application/json')
+            blob.upload_from_string(df.to_csv(index=False), content_type='application/json')
             return True
         return False
 
