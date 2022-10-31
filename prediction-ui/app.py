@@ -34,11 +34,6 @@ def predict_price():
         api_endpoint = os.environ['PREDICTION_API_ENDPOINT']
         predict_url = "{0}/{1}".format(api_url, api_endpoint)
         res = requests.post(predict_url, json=json.loads(json.dumps(prediction_input)))
-        print(res.status_code, file=sys.stdout)
-        result = res.json()
-        # Flush stdout to print in console
-        sys.stdout.flush()
-        return result
     return render_template("user_form.html")  # this method is called of HTTP method is GET, e.g., when browsing the link
 
 if __name__ == '__main__':
