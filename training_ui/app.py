@@ -23,16 +23,12 @@ def training_ui():
 def upload_data():
     if request.method == "POST":
         # No file in request
-        # if 'training_data' not in request.files:
-        #     print("No file in request", file=sys.stdout)
-        #     sys.stdout.flush()
-        #     return redirect(request.url)
+        if 'training_data' not in request.files:
+            print("No file in request", file=sys.stdout)
+            sys.stdout.flush()
+            return redirect(request.url)
         # Retrieve file
-        print(request.files, file=sys.stdout)
-        sys.stdout.flush()
         data_file = request.files['training_data']
-        print(data_file)
-        sys.stdout.flush()
         # No file
         if data_file.filename == '':
             print("No file selected", file=sys.stdout)
@@ -44,7 +40,10 @@ def upload_data():
         upload_url = "{0}/{1}".format(request_path, upload_endpoint)
         print(upload_url, file=sys.stdout)
         sys.stdout.flush()
-        upload_request = requests.post(upload_url, json=json.load(data_file))
+        json_format = json.load(data_file)
+        print(json_format, file=sys.stdout)
+        sys.stdout.flush()
+        upload_request = requests.post(upload_url, json=json_format)
         # Flush stdout to print in console
         return upload_request.json()
     return redirect('/training_ui')
