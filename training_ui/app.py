@@ -20,14 +20,14 @@ def training_ui():
 @app.route('/upload_data', methods=['GET', 'POST'])
 def upload_data():
     if request.method == "POST":
-        # # No file in request
-        # if 'training_data' not in request.files:
-        #     flash("No file in request")
-        #     print("No file in request", file=sys.stdout)
-        #     sys.stdout.flush()
-        #     return redirect(request.url)
-        # # Retrieve file
-        print(list(request.files.keys), file=sys.stdout)
+        # No file in request
+        if 'training_data' not in request.files:
+            flash("No file in request")
+            print("No file in request", file=sys.stdout)
+            sys.stdout.flush()
+            return redirect(request.url)
+        # Retrieve file
+        print(request.files.keys, file=sys.stdout)
         sys.stdout.flush()
         data_file = request.files['training_data']
         print(data_file)
