@@ -20,10 +20,10 @@ def train_model():
     pipeline_template = os.environ['PIPELINE_TEMPLATE']
     pipeline_folder = os.environ['PIPELINE_FOLDER']
     pipeline_parameters = os.environ['PIPELINE_PARAMETERS']
-    if ModelManaging.run_pipeline_job("housing-price",
-                                      "./house_pricing_training_pipeline.json",
-                                      "gs://de_jads_temp_ng",
-                                      "./parameters.json"):
+    if ModelManaging.run_pipeline_job(pipeline_name,
+                                      pipeline_template,
+                                      pipeline_folder,
+                                      pipeline_parameters):
         return "Model trained succesfully"
     else:
         return "Model failed to train"
