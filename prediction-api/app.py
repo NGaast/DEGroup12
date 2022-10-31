@@ -1,5 +1,5 @@
 from flask import Flask, request
-from price_predictor import PricePredictor
+from resources.price_predictor import PricePredictor
 
 app = Flask(__name__)
 app.config["DEBUG"] = True

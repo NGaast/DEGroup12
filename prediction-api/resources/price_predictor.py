@@ -6,6 +6,7 @@ import joblib
 import pandas as pd
 from flask import jsonify
 from google.cloud import storage
+import sys
 
 
 class PricePredictor:
@@ -24,12 +25,18 @@ class PricePredictor:
         blob.download_to_filename('/tmp/depl_model.pkl')
         # Load RandomForestRegressor model
         model = joblib.load('/tmp/depl_model.pkl')
-        print(json.dumps(prediction_input))
+        print(model, file=sys.stdout)
+        sys.stdout.flush()
+        print(json.dumps(prediction_input), file=sys.stdout)
+        sys.stdout.flush()
         df = pd.read_json(json.dumps(prediction_input), orient='records')
-        print(df)
+        print(df, file=sys.stdout)
+        sys.stdout.flush()
         y_pred = model.predict(df)
-        print(y_pred[0])
+        print(y_pred[0], file=sys.stdout)
+        sys.stdout.flush()
         status = (y_pred[0] > 0.5)
-        print(type(status[0]))
+        print(type(status[0]), file=sys.stdout)
+        sys.stdout.flush()
         # return the prediction outcome as a json message. 200 is HTTP status code 200, indicating successful completion
         return jsonify({'result': str(status[0])}), 200
