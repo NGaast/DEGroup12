@@ -28,7 +28,6 @@ def predict_price():
                 "LSTAT": float(request.form.get("lstat"))
             }
         ]
-        print(prediction_input, file=sys.stdout)
         # use requests library to execute the prediction service API by sending a HTTP POST request
         # localhost or 127.0.0.1 is used when the applications are on the same machine.
         api_url = os.environ['PREDICTION_API_URL']
@@ -36,11 +35,10 @@ def predict_price():
         predict_url = "{0}/{1}".format(api_url, api_endpoint)
         res = requests.post(predict_url, json=json.loads(json.dumps(prediction_input)))
         print(res.status_code, file=sys.stdout)
+        sys.stdout.flush()
         result = res.json()
         return result
-    return render_template(
-        "user_form.html")  # this method is called of HTTP method is GET, e.g., when browsing the link
-
+    return render_template("user_form.html")  # this method is called of HTTP method is GET, e.g., when browsing the link
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
