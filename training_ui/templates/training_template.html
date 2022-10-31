@@ -3,7 +3,7 @@
         <h1>Model Management</h1>
         <form action="/upload_data" method="POST">
             <label for="training_data">Training data:</label>
-            <input type="file" id="training_data" name="training_data" placeholder="Training data"> <br>
+            <input type="file" id="training_data" name="training_data" accept=".json" placeholder="Training data"> <br>
             <p><input type='submit' value='Check'/></p>
         </form>
         <form action="/train_model" method="POST">
