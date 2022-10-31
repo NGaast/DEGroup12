@@ -45,7 +45,7 @@ def upload_data():
         sys.stdout.flush()
         upload_request = requests.post(upload_url, json=json_format)
         # Flush stdout to print in console
-        return upload_request.json()
+        return redirect('/training_ui')
     return redirect('/training_ui')
     
 @app.route('/train_model', methods=['POST'])
