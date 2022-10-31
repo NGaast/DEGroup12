@@ -12,7 +12,7 @@ COPY . .
 EXPOSE 5000
 # Enviroment Variables
 ENV PREDICTION_API_URL=https://prediction-api-hwhqlhs2ua-uc.a.run.app
-ENV PREDICTION_API_ENDPOINT=predict_price
+ENV PREDICTION_API_ENDPOINT=price_predictor
 #Add some meta data if necessary
 LABEL houseprice.predictor.api="0.0.1-beta"
 # Run our App
