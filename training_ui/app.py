@@ -20,22 +20,26 @@ def training_ui():
 @app.route('/upload_data', methods=['GET', 'POST'])
 def upload_data():
     if request.method == "POST":
-        flash('Test')
         # No file in request
         if 'training_data' not in request.files:
             flash("No file in request")
+            print("No file in request", file=sys.stdout)
             return redirect(request.url)
         # Retrieve file
         data_file = request.files['training_data']
         # No file
         if data_file.filename == '':
             flash("No file selected")
+            print("No file selected", file=sys.stdout)
             return redirect(request.url)
+        print(data_file)
         request_path = os.environ['TRAINING_API']
         upload_endpoint = os.environ['UPLOAD_ENDPOINT']
         upload_url = "{0}/{1}".format(request_path, upload_endpoint)
         print(upload_url, file=sys.stdout)
         upload_request = requests.post(upload_url, json=json.load(data_file))
+        # Flush stdout to print in console
+        sys.stdout.flush()
         return upload_request.json()
     return redirect('/training_ui')
     
