@@ -5,6 +5,7 @@ import sys
 import os
 import json
 import secrets
+import logging
 
 app=Flask(__name__)
 
@@ -30,6 +31,7 @@ def training_ui():
         upload_endpoint = os.environ['UPLOAD_ENDPOINT']
         upload_url = "{0}/{1}".format(request_path, upload_endpoint)
         print(upload_url, file=sys.stdout)
+        app.logging.info('Test log')
         upload_request = requests.post(upload_url, json=json.load(data_file))
         # return upload_request.json()
     return render_template("training_template.html")  # this method is called of HTTP method is GET, e.g., when browsing the link
