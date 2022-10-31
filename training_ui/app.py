@@ -27,15 +27,18 @@ def upload_data():
         #     sys.stdout.flush()
         #     return redirect(request.url)
         # # Retrieve file
+        print("IN")
+        sys.stdout.flush()
         data_file = request.files['training_data']
+        print(data_file)
+        sys.stdout.flush()
         # No file
         if data_file.filename == '':
             flash("No file selected")
             print("No file selected", file=sys.stdout)
             sys.stdout.flush()
             return redirect(request.url)
-        print(data_file)
-        sys.stdout.flush()
+
         request_path = os.environ['TRAINING_API']
         upload_endpoint = os.environ['UPLOAD_ENDPOINT']
         upload_url = "{0}/{1}".format(request_path, upload_endpoint)
