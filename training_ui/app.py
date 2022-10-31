@@ -17,7 +17,7 @@ app.secret_key = secret
 def training_ui():
     return render_template("training_template.html")  # this method is called of HTTP method is GET, e.g., when browsing the link
 
-@app.route('/upload_data', methods=['POST'])
+@app.route('/upload_data', methods=['GET', 'POST'])
 def upload_data():
     if request.method == "POST":
         flash('Test')
@@ -36,7 +36,8 @@ def upload_data():
         upload_url = "{0}/{1}".format(request_path, upload_endpoint)
         print(upload_url, file=sys.stdout)
         upload_request = requests.post(upload_url, json=json.load(data_file))
-        return redirect('/training_ui')
+        return upload_request.json()
+    return redirect('/training_ui')
     
 @app.route('/train_model', methods=['POST'])
 def train_model():
@@ -46,6 +47,7 @@ def train_model():
         train_endpoint = os.environ['TRAIN_ENDPOINT']
         train_url = "{0}/{1}".format(request_path, train_endpoint)
         train_request = requests.post(train_url)
-        return redirect('/training_ui')
+        return train_request.json()
+    return redirect('/training_ui')
 
 app.run(host='0.0.0.0', port=5000)
