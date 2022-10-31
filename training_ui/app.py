@@ -23,20 +23,18 @@ def training_ui():
 def upload_data():
     if request.method == "POST":
         # No file in request
-        if 'training_data' not in request.files:
-            flash("No file in request")
-            print("No file in request", file=sys.stdout)
-            sys.stdout.flush()
-            return redirect(request.url)
+        # if 'training_data' not in request.files:
+        #     print("No file in request", file=sys.stdout)
+        #     sys.stdout.flush()
+        #     return redirect(request.url)
         # Retrieve file
-        print(request.files.keys, file=sys.stdout)
+        print(request.files, file=sys.stdout)
         sys.stdout.flush()
         data_file = request.files['training_data']
         print(data_file)
         sys.stdout.flush()
         # No file
         if data_file.filename == '':
-            flash("No file selected")
             print("No file selected", file=sys.stdout)
             sys.stdout.flush()
             return redirect(request.url)
