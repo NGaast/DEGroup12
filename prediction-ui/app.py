@@ -36,6 +36,7 @@ def predict_price():
 
         # Send POST request to prediction url
         res = requests.post(predict_url, json=json.loads(json.dumps(prediction_input)))
+        return res.json()
     return render_template("user_form.html")  # this method is called of HTTP method is GET, e.g., when browsing the link
 
 if __name__ == '__main__':
