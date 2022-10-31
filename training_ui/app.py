@@ -27,7 +27,7 @@ def upload_data():
         #     sys.stdout.flush()
         #     return redirect(request.url)
         # # Retrieve file
-        print(request.files.keys, file=sys.stdout)
+        print(list(request.files.keys), file=sys.stdout)
         sys.stdout.flush()
         data_file = request.files['training_data']
         print(data_file)
