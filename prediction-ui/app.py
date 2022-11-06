@@ -13,7 +13,9 @@ app = Flask(__name__)
 secret = secrets.token_urlsafe(32)
 app.secret_key = secret
 
-# A decorator used to tell the application
+# Test the CI-CD
+
+# A decorator used to tell the application 
 # which URL is associated function
 @app.route('/predictprice', methods=["GET", "POST"])
 def predict_price():
